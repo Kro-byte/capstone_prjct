@@ -4,7 +4,7 @@ numpy
 scikit-learn
 xgboost
 joblib
-python==3.13
+python==3.8
 torch==1.13.1
 torchvision==0.14.0
 torchaudio==2.0.0
