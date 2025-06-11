@@ -8,6 +8,11 @@ import os
 import urllib.request
 from ai_summary import generate_ai_summary  # Import fungsi ringkasan AI
 
+# --- Konfigurasi Halaman ---
+st.set_page_config(page_title="Startup Success Predictor", layout="wide")
+st.title("🚀 Startup Success Predictor")
+st.markdown("Masukkan detail startup untuk memprediksi kemungkinan **berhasil** (Acquired/IPO) atau **gagal** (Closed).")
+
 # --- Konfigurasi Awal ---
 ANALYSIS_DATE = pd.Timestamp('2025-01-01')
 
@@ -39,11 +44,6 @@ try:
 except Exception as e:
     st.error(f"❗ Terjadi error saat memuat model/preprocessor: {e}")
     st.stop()
-
-# --- Konfigurasi Halaman ---
-st.set_page_config(page_title="Startup Success Predictor", layout="wide")
-st.title("🚀 Startup Success Predictor")
-st.markdown("Masukkan detail startup untuk memprediksi kemungkinan **berhasil** (Acquired/IPO) atau **gagal** (Closed).")
 
 # --- Formulir Input ---
 col1, col2 = st.columns(2)
