@@ -8,6 +8,10 @@ import os
 import urllib.request
 from ai_summary import generate_ai_summary  # Import fungsi ringkasan AI
 
+import xgboost
+st.write("Versi XGBoost:", xgboost.__version__)
+
+
 # --- Konfigurasi Halaman ---
 st.set_page_config(page_title="Startup Success Predictor", layout="wide")
 st.title("🚀 Startup Success Predictor")
