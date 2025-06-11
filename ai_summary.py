@@ -2,8 +2,8 @@
 from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 
 # Load tokenizer dan model Qwen
-tokenizer = AutoTokenizer.from_pretrained("distilgpt2")
-model = AutoModelForCausalLM.from_pretrained("distilgpt2")
+tokenizer = AutoTokenizer.from_pretrained("sshleifer/tiny-gpt2")
+model = AutoModelForCausalLM.from_pretrained("sshleifer/tiny-gpt2")
 
 # Buat pipeline text-generation
 pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, max_new_tokens=300)
