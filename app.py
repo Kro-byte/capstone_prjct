@@ -4,20 +4,40 @@ import pandas as pd
 import numpy as np
 import datetime
 import joblib
+import os
+import urllib.request
 from ai_summary import generate_ai_summary  # Import fungsi ringkasan AI
 
 # --- Konfigurasi Awal ---
 ANALYSIS_DATE = pd.Timestamp('2025-01-01')
 
-# --- Load Model & Preprocessor ---
+# --- URL Model dari GitHub Releases ---
+rf_url = "https://github.com/Kro-byte/capstone_prjct/releases/download/v1.0/random_forest_model_v3.pkl"
+voting_url = "https://github.com/Kro-byte/capstone_prjct/releases/download/v1.0/voting_model_v3.pkl"
+preprocessor_path = "preprocessor_pipeline_v2.pkl"
+model_path = "voting_model_v3.pkl"  # Ubah ke "random_forest_model_v3.pkl" jika ingin default-nya RF
+
+# --- Fungsi Download ---
+def download_if_not_exists(url, local_path):
+    if not os.path.exists(local_path):
+        try:
+            st.info(f"Mengunduh: `{os.path.basename(local_path)}` dari GitHub...")
+            urllib.request.urlretrieve(url, local_path)
+            st.success(f"✅ Berhasil diunduh: {local_path}")
+        except Exception as e:
+            st.error(f"❗ Gagal mengunduh {local_path}: {e}")
+            st.stop()
+
+# --- Unduh jika belum ada ---
+download_if_not_exists(voting_url, "voting_model_v3.pkl")
+download_if_not_exists(rf_url, "random_forest_model_v3.pkl")
+
+# --- Load Model dan Preprocessor ---
 try:
-    preprocessor = joblib.load('preprocessor_pipeline_v2.pkl')
-    model = joblib.load('voting_model_v3.pkl')
-except FileNotFoundError:
-    st.error("❗ File model atau preprocessor tidak ditemukan. Pastikan file '.pkl' berada di direktori yang sesuai.")
-    st.stop()
+    preprocessor = joblib.load(preprocessor_path)
+    model = joblib.load(model_path)
 except Exception as e:
-    st.error(f"❗ Terjadi error saat memuat model atau preprocessor: {e}")
+    st.error(f"❗ Terjadi error saat memuat model/preprocessor: {e}")
     st.stop()
 
 # --- Konfigurasi Halaman ---
